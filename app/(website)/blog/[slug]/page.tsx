@@ -15,5 +15,5 @@ const BlogPost = () => {
         </p>
     );
 }
-
+ 
 export default BlogPost;
