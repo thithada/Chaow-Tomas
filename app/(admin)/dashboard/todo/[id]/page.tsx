@@ -3,16 +3,17 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function TodoViewPage({
-    params
+  params,
 }: {
-    params: { id: number }
+  params: { id: number };
 }) {
   const todoId = await params.id;
   const promisePool = mysqlPool.promise();
-  const [rows, fields] = await promisePool.execute(`select * from todos where id = ${todoId}`);
+  const [rows, fields] = await promisePool.execute(
+    `select * from todos where id = ${todoId}`
+  );
 
   if (rows.length > 0) {
-
     const data = rows[0];
     return (
       <>
@@ -24,18 +25,24 @@ export default async function TodoViewPage({
           <div>Updated At : {data.updated_at.toISOString()}</div>
 
           <div className="mt-3">
-            <Link href={'/dashboard/todo/' + todoId + '/edit'} className="p-3 bg-blue-300"> Edit Todo </Link>
+            <Link
+              href={"/dashboard/todo/" + todoId + "/edit"}
+              className="p-3 bg-blue-300"
+            >
+              
+              Edit Todo
+            </Link>
           </div>
         </div>
       </>
     );
-  }else{
+  } else {
     return (
-        <>
-            <div className="p-3">
-                <h1>NO DATA Found</h1>
-            </div>
-        </>
-    )
+      <>
+        <div className="p-3">
+          <h1>NO DATA Found</h1>
+        </div>
+      </>
+    );
   }
 }
